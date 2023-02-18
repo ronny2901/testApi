@@ -32,7 +32,7 @@ public class UserService {
             return userEntity;
         } else {
             var userDto = userComponent.getProfileFromGithub(login);
-            return modelMapper.map(userDto, UsersEntity.class);
+            return saveProfile(modelMapper.map(userDto, UsersEntity.class));
         }
     }
 
@@ -50,10 +50,11 @@ public class UserService {
     }
 
     @Async
-    public void saveProfile(UsersEntity userEntity) {
+    public UsersEntity saveProfile(UsersEntity userEntity) {
         try {
             var entity = repository.save(userEntity);
             log.info("stage=save-success, profile={}", entity);
+            return entity;
         } catch (DataIntegrityViolationException exception) {
             String msgError =  exception.getMessage();
             log.error("stage=save-error, type-attachment={}, msg={}",
