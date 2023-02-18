@@ -23,8 +23,6 @@ public class UsersEntity {
     String name;
     @Column(name = "login")
     String login;
-
-
     @Column(name = "node_id")
     String nodeId;
     @Column(name = "avatar_url")

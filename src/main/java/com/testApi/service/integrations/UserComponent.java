@@ -1,25 +1,18 @@
 package com.testApi.service.integrations;
 
 import com.testApi.api.dto.UserDTO;
-import com.testApi.api.error.ErrorControllerException;
-import com.testApi.persistence.entity.UsersEntity;
-import com.testApi.persistence.repository.UserRepository;
+import com.testApi.api.error.NotFoundException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.core.env.Environment;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.*;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.Objects;
 
 import static com.testApi.constants.AppConstants.GITHUB.URL_GET_PROFILE;
 
@@ -46,7 +39,7 @@ public class UserComponent {
         } catch (Exception exception) {
             String msgError =  exception.getMessage();
             log.error("stage=error-get-profile, msg={}", exception.getMessage(), exception);
-            throw new ErrorControllerException( msgError);
+            throw new NotFoundException( msgError);
         }
         return null;
     }
