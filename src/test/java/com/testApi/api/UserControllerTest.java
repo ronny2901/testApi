@@ -22,15 +22,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @DisplayName("UserController Tests")
 public class UserControllerTest {
-
     private MockMvc mockMvc;
-
     @Mock
     private UserService userService;
-
     @InjectMocks
     private UserController userController;
-
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);

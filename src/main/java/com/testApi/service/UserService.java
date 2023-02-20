@@ -20,10 +20,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @FieldDefaults(level= AccessLevel.PRIVATE)
 public class UserService {
-
     final UserRepository repository;
     final UserComponent userComponent;
-
     final ModelMapper modelMapper;
 
     public UsersEntity findUserProfile(final String login) {
@@ -44,7 +42,7 @@ public class UserService {
         } catch (DataIntegrityViolationException exception) {
             String msgError = exception.getCause().getCause().getMessage();
             log.error("stage=save-type-attachment-error, type-attachment={}, msg={}",
-                    login, msgError, exception);
+                    login, msgError);
             throw new PersistenceException(msgError);
         }
     }
@@ -58,7 +56,7 @@ public class UserService {
         } catch (DataIntegrityViolationException exception) {
             String msgError =  exception.getMessage();
             log.error("stage=save-error, type-attachment={}, msg={}",
-                    userEntity, msgError, exception);
+                    userEntity, msgError);
             throw new PersistenceException( msgError);
         }
     }
